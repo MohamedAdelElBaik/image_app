@@ -9,10 +9,13 @@ const fs = require("fs");
 const app = express();
 
 mongoose
-  .connect("", {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-  })
+  .connect(
+    "mongodb+srv://mohamedAdel:qf-TDjnckD8M9CY@cluster0.evxfmf1.mongodb.net/main-data?retryWrites=true&w=majority",
+    {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+    }
+  )
   .then(() => {
     console.log("mongodb connected");
   });
