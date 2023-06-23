@@ -9,6 +9,14 @@ const imageUpload = mongoose.Schema({
     type: String,
     required: true,
   },
+  eventId: {
+    type: String,
+    required: true,
+  },
+  arriveAt: {
+    type: Date,
+    default: Date.now(),
+  },
 });
 
 module.exports = mongoose.model("imageUpload", imageUpload);

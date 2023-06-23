@@ -26,9 +26,15 @@ app.use("/images", express.static("images"));
 app.post("/myImages", multerConfig, async (req, res) => {
   const result = await cloud.uploads(req.files[0].path);
 
+  console.log("result ------------- : ", req.body.type);
+
+  const { eventId, arriveAt } = req.body;
+
   const imageDetails = {
     imageName: req.files[0].originalname,
     url: result.url,
+    eventId,
+    arriveAt,
   };
   const image = new imageModel(imageDetails);
   image.save();
@@ -45,6 +51,16 @@ app.post("/myImages", multerConfig, async (req, res) => {
 app.get("/myImages", async (req, res) => {
   const images = await imageModel.find();
   res.json(images);
+});
+
+app.get("/myImages/:id", async (req, res) => {
+  const images = await imageModel.find(req.params.id);
+  //   res.json(images);
+  console.log("req.params: ", req.params);
+  res.status(200).json({
+    status: "success",
+    images,
+  });
 });
 
 app.listen(8080, () => {
